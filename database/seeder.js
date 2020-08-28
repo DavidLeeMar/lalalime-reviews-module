@@ -1,4 +1,5 @@
 const Review = require('./index.js');
+const fs = require('fs');
 
 
 const ratings = [1, 2, 3, 4, 5];
@@ -194,13 +195,13 @@ const createBottomReviews = () => {
   return bottomReviewsArr;
 }
 
-// const createTopReviews = () => {
-//   let topReviewsArr = [];
-//   for (let i = 0; i < 250; i++) {
-//     topReviewsArr.push(createTops());
-//   }
-//   return topReviewsArr;
-// }
+const createTopReviews = () => {
+  let topReviewsArr = [];
+  for (let i = 0; i < 250; i++) {
+    topReviewsArr.push(createTops());
+  }
+  return topReviewsArr;
+}
 
 // const combineReviews = () => {
 //   let bottomArray = createBottomReviews();
@@ -221,3 +222,81 @@ const insertMockData = () => {
 }
 
 insertMockData();
+
+
+/*
+const writeUsers = fs.createWriteStream('user991.json');
+
+function writeTenMillionUsers(writer, encoding, callback) {
+  let i = 500000;
+  let id = 9500000;
+  function write() {
+    let ok = true;
+    do {
+      let obj = {}
+      obj.id = id;
+      obj.reviews = [];
+      for (let i = 0; i < 5; i++) {
+        obj.reviews.push(createTops());
+      }
+
+      i -= 1;
+      id += 1;
+
+      const data = JSON.stringify(obj) + ',\n';
+      if (i === 0) {
+        console.log('done', data);
+        writer.write((data.slice(0, -2) + ']'), encoding, callback);
+      } else {
+
+// see if we should continue, or wait
+// don't pass the callback, because we're not done yet.
+        ok = writer.write(data, encoding);
+      }
+    } while (i > 0 && ok);
+    if (i > 0) {
+// had to stop early!
+// write some more once it drains
+      writer.once('drain', write);
+    }
+  }
+write()
+}
+
+writeTenMillionUsers(writeUsers, 'utf-8', () => {
+  writeUsers.end();
+
+});
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+// const insertMockData = () => {
+//   let mockReviews = createBottomReviews();
+
+
+//   mockReviews = mockReviews.map(review => JSON.stringify(review) + "\n").join('');
+
+//   /* fs.writeFile('bulk.json', mockReviews, (err, result) => {
+//     if (err) {
+//       throw err;
+//     } else {
+//       console.log('data written')
+//     }
+//   }); */
+
+
+
+// }
+
+// insertMockData();

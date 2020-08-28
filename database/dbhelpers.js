@@ -1,4 +1,10 @@
 const Review = require('./index.js');
+const db = require('./pg.js');
+
+
+const getReviewById = () => {
+  return
+}
 
 const getAllReviews = () => {
   return Review.find();
@@ -17,12 +23,12 @@ const getReviewsByAthleticType = (athleticType) => {
 // filter by ageRange
 const getReviewsByAgeRange = (ageRange) => {
   return Review.find({ ageRange: ageRange.ageRange });
-} 
+}
 
 // filter by bodyType
 const getReviewsByBodyType = (bodyType) => {
   return Review.find({ bodyType: bodyType.bodyType });
-} 
+}
 
 // sort by featured true first
 const sortReviewsByFeatured = () => {
@@ -44,9 +50,9 @@ const sortReviewsByRatingAscending = () => {
   return Review.find({}).sort({ rating: 1 });
 }
 
-module.exports = { 
-  getAllReviews, 
-  getReviewsByRating, 
+module.exports = {
+  getAllReviews,
+  getReviewsByRating,
   getReviewsByAthleticType,
   getReviewsByAgeRange,
   getReviewsByBodyType,
