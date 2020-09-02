@@ -211,50 +211,58 @@ const createTopReviews = () => {
 // }
 
 
-const insertMockData = () => {
-  let mockReviews = createBottomReviews();
-  Review.insertMany(mockReviews)
-    .then((docs) => {
-      // console.log(docs);
-      console.log('database seeded')
-    })
-    .catch((err) => console.error(err));
-}
+// const insertMockData = () => {
+//   let mockReviews = createBottomReviews();
+//   Review.insertMany(mockReviews)
+//     .then((docs) => {
+//       // console.log(docs);
+//       console.log('database seeded')
+//     })
+//     .catch((err) => console.error(err));
+// }
 
-insertMockData();
+// insertMockData();
 
 
+
+/*FOR MONGO 50M */
 /*
-const writeUsers = fs.createWriteStream('user991.json');
+
+const writeUsers = fs.createWriteStream('mongodata9a.csv');
+writeUsers.write(`id, rating, username, activeSinceDate, helpfulnessVotesThumbsUp, helpfulnessVotesThumbsDown, featured, location, athleticType, ageRange, bodyType, whatYouLike, whatYouDidntLike, reviewDate, sortableReviewDate,reviewTitle, reviewBody, wasThisReviewHelpfulYes, wasThisReviewHelpfulNo, product_id\n`, 'utf8');
 
 function writeTenMillionUsers(writer, encoding, callback) {
-  let i = 500000;
-  let id = 9500000;
+  let i = 5000001;
+  let id = 45000001;
+  let product_id = 5000001;
+
   function write() {
     let ok = true;
     do {
-      let obj = {}
-      obj.id = id;
-      obj.reviews = [];
-      for (let i = 0; i < 5; i++) {
-        obj.reviews.push(createTops());
-      }
-
       i -= 1;
-      id += 1;
 
-      const data = JSON.stringify(obj) + ',\n';
-      if (i === 0) {
+
+      let review = createTops();
+
+      const data =
+      `${id}, ${review.rating}, ${review.username}, "${review.activeSinceDate}", ${review.helpfulnessVotesThumbsUp}, ${review.helpfulnessVotesThumbsDown}, ${review.featured}, "${review.location}", ${review.athleticType}, ${review.ageRange}, ${review.bodyType}, ${review.whatYouLike}, ${review.whatYouDidntLike}, "${review.reviewDate}", "${review.sortableReviewDate}", ${review.reviewTitle}, "${review.reviewBody}", ${review.wasThisReviewHelpfulYes}, ${review.wasThisReviewHelpfulNo}, ${product_id}\n`;
+
+      if (i === 1) {
         console.log('done', data);
-        writer.write((data.slice(0, -2) + ']'), encoding, callback);
+        writer.write(data, encoding, callback);
+
       } else {
 
-// see if we should continue, or wait
-// don't pass the callback, because we're not done yet.
+      // see if we should continue, or wait
+      // don't pass the callback, because we're not done yet.
         ok = writer.write(data, encoding);
       }
-    } while (i > 0 && ok);
-    if (i > 0) {
+
+      id += 1;
+      product_id += 1;
+
+    } while (i > 1 && ok);
+    if (i > 1) {
 // had to stop early!
 // write some more once it drains
       writer.once('drain', write);
@@ -265,22 +273,114 @@ write()
 
 writeTenMillionUsers(writeUsers, 'utf-8', () => {
   writeUsers.end();
-
 });
 
 */
+/*FOR POSTGRES */
+
+
+const writeUsers = fs.createWriteStream('sqldata5.csv');
+writeUsers.write(`rating, username, activeSinceDate, helpfulnessVotesThumbsUp, helpfulnessVotesThumbsDown, featured, location, athleticType, ageRange, bodyType, whatYouLike, whatYouDidntLike, reviewDate, sortableReviewDate,reviewTitle, reviewBody, wasThisReviewHelpfulYes, wasThisReviewHelpfulNo, product_id\n`, 'utf8');
+
+function writeTenMillionUsers(writer, encoding, callback) {
+  let i = 5000001;
+
+  function write() {
+    let ok = true;
+    do {
+      i -= 1;
+
+
+      let review = createTops();
+      let randomNumber = (Math.floor(Math.random() * 5000000)) + 5000001;
+      const data =
+      `${review.rating},${review.username},"${review.activeSinceDate}",${review.helpfulnessVotesThumbsUp},${review.helpfulnessVotesThumbsDown},${review.featured},"${review.location}",${review.athleticType},${review.ageRange},${review.bodyType},${review.whatYouLike},${review.whatYouDidntLike},"${review.reviewDate}","${review.sortableReviewDate}",${review.reviewTitle},"${review.reviewBody}",${review.wasThisReviewHelpfulYes},${review.wasThisReviewHelpfulNo},${randomNumber}\n`;
+
+      if (i === 1) {
+        console.log('done', data);
+        writer.write(data, encoding, callback);
+
+      } else {
+
+      // see if we should continue, or wait
+      // don't pass the callback, because we're not done yet.
+        ok = writer.write(data, encoding);
+      }
+
+    } while (i > 1 && ok);
+    if (i > 1) {
+// had to stop early!
+// write some more once it drains
+      writer.once('drain', write);
+    }
+  }
+write()
+}
+
+writeTenMillionUsers(writeUsers, 'utf-8', () => {
+  writeUsers.end();
+});
 
 
 
 
 
 
+//MONGO SEEDING METHOD
+//=====================================
+
+
+
+// const writeUsers = fs.createWriteStream('user991.json');
+
+// function writeTenMillionUsers(writer, encoding, callback) {
+//   let i = 500000;
+//   let id = 9500000;
+//   function write() {
+//     let ok = true;
+//     do {
+//       let obj = {}
+//       obj.id = id;
+//       obj.reviews = [];
+//       for (let i = 0; i < 5; i++) {
+//         obj.reviews.push(createTops());
+//       }
+
+//       i -= 1;
+//       id += 1;
+
+//       const data = JSON.stringify(obj) + ',\n';
+//       if (i === 0) {
+//         console.log('done', data);
+//         writer.write((data.slice(0, -2) + ']'), encoding, callback);
+//       } else {
+
+// // see if we should continue, or wait
+// // don't pass the callback, because we're not done yet.
+//         ok = writer.write(data, encoding);
+//       }
+//     } while (i > 0 && ok);
+//     if (i > 0) {
+// // had to stop early!
+// // write some more once it drains
+//       writer.once('drain', write);
+//     }
+//   }
+// write()
+// }
+
+// writeTenMillionUsers(writeUsers, 'utf-8', () => {
+//   writeUsers.end();
+
+// });
 
 
 
 
 
 
+//LEGACY SEEDING METHOD
+//======================================
 // const insertMockData = () => {
 //   let mockReviews = createBottomReviews();
 
@@ -300,3 +400,49 @@ writeTenMillionUsers(writeUsers, 'utf-8', () => {
 // }
 
 // insertMockData();
+
+
+
+
+/*FOR POSTGRES PRODUCTS TABLE */
+/*
+
+const writeUsers = fs.createWriteStream('productTable.csv');
+writeUsers.write(`product_id\n`, 'utf8');
+
+function writeTenMillionUsers(writer, encoding, callback) {
+  let i = 10000001;
+
+  function write() {
+    let ok = true;
+    do {
+      i -= 1;
+
+      const data =
+      `${i}\n`;
+
+      if (i === 1) {
+        console.log('done', data);
+        writer.write(data, encoding, callback);
+
+      } else {
+
+      // see if we should continue, or wait
+      // don't pass the callback, because we're not done yet.
+        ok = writer.write(data, encoding);
+      }
+
+    } while (i > 1 && ok);
+    if (i > 1) {
+// had to stop early!
+// write some more once it drains
+      writer.once('drain', write);
+    }
+  }
+write()
+}
+
+writeTenMillionUsers(writeUsers, 'utf-8', () => {
+  writeUsers.end();
+});
+*/

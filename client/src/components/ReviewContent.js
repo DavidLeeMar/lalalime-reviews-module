@@ -16,9 +16,9 @@ export default class ReviewContent extends Component {
       isReportPopupShown: false,
       isThankYouPopupShown: false
     };
-  
+
   }
-  
+
   handleUsernameEnter = (event) => {
     event.preventDefault();
     this.setState(state => ({
@@ -102,31 +102,31 @@ export default class ReviewContent extends Component {
 
     let yesLink;
     let noLink;
-    clickableLinkForYes ? 
-    yesLink = 
+    clickableLinkForYes ?
+    yesLink =
     <span className="footer-answer">
       <a href="" className="yes-link" title="Yes" onClick={this.handleHelpfulYesClick} >yes &#40; {helpfulYes} &#41;</a>
     </span>
     :
-    yesLink = 
+    yesLink =
     <span className="footer-answer">
       <a href="" title="Yes" style={{ pointerEvents: 'none' }} onClick={this.handleHelpfulYesClick}>yes &#40; {helpfulYes} &#41;</a>
     </span>;
 
     clickableLinkForNo ?
-    noLink = 
+    noLink =
     <span className="footer-answer">
       <a href="" className="no-link" title="No" onClick={this.handleHelpfulNoClick}>no &#40; {helpfulNo} &#41;</a>
     </span>
     :
-    noLink = 
+    noLink =
     <span className="footer-answer">
       <a href="" title="No" style={{ pointerEvents: 'none' }} onClick={this.handleHelpfulNoClick}>no &#40; {helpfulNo} &#41;</a>
     </span>;
 
     let reportPopup;
-    isReportPopupShown ? 
-    reportPopup =             
+    isReportPopupShown ?
+    reportPopup =
     <div className="report-popup">
       <span>describe the issue</span>
       <form>
@@ -134,9 +134,9 @@ export default class ReviewContent extends Component {
           <textarea type="text"></textarea>
         </div>
         <div className="report-form-btns">
-          <input className="submit-btn" type="submit" value="Submit" 
+          <input className="submit-btn" type="submit" value="Submit"
           onClick={this.handleReportButtonClick} />
-          <input className="cancel-btn" type="submit" value="Cancel" 
+          <input className="cancel-btn" type="submit" value="Cancel"
           onClick={this.handleReportButtonClick} />
         </div>
       </form>
@@ -145,7 +145,7 @@ export default class ReviewContent extends Component {
 
     let thankYouPopup;
     isThankYouPopupShown ?
-    thankYouPopup = 
+    thankYouPopup =
     <div className="thank-you-popup">
       <span className="popup-text">Thank you! You have successfully submitted feedback for this review.</span>
       <a href="" title="Close" className="popup-close-button" onClick={this.handleHelpfulCloseClick}>&#x2715;</a>
@@ -154,7 +154,7 @@ export default class ReviewContent extends Component {
 
     let userPopup;
     isUserPopupShown ?
-      userPopup = 
+      userPopup =
       <div className="user-popup" onMouseLeave={this.handleUsernameLeave}>
         <div className="popup-username">
           <a href="#/" className="username" title={`See ${review.username}'s full profile`}>{review.username}</a>
@@ -208,32 +208,32 @@ export default class ReviewContent extends Component {
             </div>
             <div className="user-property">
               <span className="lighter">athletic type: </span>
-              <span className="bolder">{review.athleticType.toUpperCase()}</span>
+              <span className="bolder">{review.athletictype.toUpperCase()}</span>
             </div>
             <div className="user-property">
               <span className="lighter">age: </span>
-              <span className="bolder">{review.ageRange.toUpperCase()}</span>
+              <span className="bolder">{review.agerange.toUpperCase()}</span>
             </div>
             <div className="user-property">
               <span className="lighter">body type: </span>
-              <span className="bolder">{review.bodyType.toUpperCase()}</span>
+              <span className="bolder">{review.bodytype.toUpperCase()}</span>
             </div>
           </div>
           <div className="profile-property">
             <div className="bolder">what you like</div>
-            <div className="lighter">{review.whatYouLike}</div>
+            <div className="lighter">{review.whatyoulike}</div>
           </div>
           <div className="profile-property">
             <div className="bolder">what you don't like</div>
-            <div className="lighter">{review.whatYouDidntLike}</div>
+            <div className="lighter">{review.whatyoudidntlike}</div>
           </div>
         </div>
         <div className="review-content">
-          <div className="review-date">{review.reviewDate.toUpperCase()}</div>
-          <div className="review-title">{review.reviewTitle}</div>
-          <div className="review-body">{review.reviewBody}</div>
+          <div className="review-date">{review.reviewdate.toUpperCase()}</div>
+          <div className="review-title">{review.reviewtitle}</div>
+          <div className="review-body">{review.reviewbody}</div>
           <div className="review-footer">
-            <span className="footer-question">Was this reivew helpful to you?</span>
+            <span className="footer-question">Was this review helpful to you?</span>
             {yesLink}
             {noLink}
             <span className="footer-report"><a href="" title="Report" onClick={this.handleReportLinkClick}>report as inappropriate</a></span>

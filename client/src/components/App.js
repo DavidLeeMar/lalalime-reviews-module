@@ -12,25 +12,26 @@ export default class App extends Component {
     this.state = {
       sortButtonName: 'choose a sort order',
       reviews: [],
+      savedReviews: [],
       filter: '',
       rating: '',
-      athleticType: '',
+      athletictype: '',
       age: '',
-      bodyType: ''
+      bodytype: ''
     };
 
   }
 
   componentDidMount() {
-    this.getReviews();
+    this.getReviews(2);
   }
 
-  getReviews = () => {
+  getReviews = (id) => {
     axios
-      .get('/reviews/sort-by-date')
+      .get(`/reviews/sort-by-date/${id}`)
       .then((reviews) => {
         this.setState({
-          reviews: reviews.data
+          reviews: reviews.data.rows
         });
       })
       .catch(err => console.error(err));
@@ -39,254 +40,107 @@ export default class App extends Component {
   filterReviewsByRating = (rating) => {
     $('.filter-popin').show();
     $('.filtered-rating-disclaimer').show();
-    axios
-      .get(`/reviews/filter-by-rating/${rating}`)
-      .then((reviews) => {
-        if (rating === 1) {
-          this.setState({
-            reviews: reviews.data,
-            filter: 'rating',
-            rating: '1 star'
-          });
-        } else if (rating === 2) {
-          this.setState({
-            reviews: reviews.data,
-            filter: 'rating',
-            rating: '2 stars'
-          });
-        } else if (rating === 3) {
-          this.setState({
-            reviews: reviews.data,
-            filter: 'rating',
-            rating: '3 stars'
-          });
-        } else if (rating === 4) {
-          this.setState({
-            reviews: reviews.data,
-            filter: 'rating',
-            rating: '4 stars'
-          });
-        } else {
-          this.setState({
-            reviews: reviews.data,
-            filter: 'rating',
-            rating: '5 stars'
-          });
-        }
-      })
-      .catch(err => console.error(err));
+
+    let savedReviews = this.state.reviews;
+    let filteredResults = this.state.reviews.filter(review => review.rating === rating)
+
+    this.setState({
+      reviews: filteredResults,
+      savedReviews: savedReviews,
+      filter: 'rating',
+      rating: `${rating} star`
+    });
   }
 
-  filterReviewsByAthleticType = (athleticType) => {
+  filterReviewsByAthleticType = (athletictype) => {
     $('.filter-popin').show();
     $('.filtered-rating-disclaimer').show();
-    axios
-      .get(`/reviews/filter-by-athletic-type/${athleticType}`)
-      .then((reviews) => {
-        if (athleticType === 'yogi') {
-          this.setState({
-            reviews: reviews.data,
-            filter: 'athletic type',
-            athleticType: 'yogi'
-          });
-        } else if (athleticType === 'runner') {
-          this.setState({
-            reviews: reviews.data,
-            filter: 'athletic type',
-            athleticType: 'runner'
-          });
-        } else if (athleticType === 'dancer') {
-          this.setState({
-            reviews: reviews.data,
-            filter: 'athletic type',
-            athleticType: 'dancer'
-          });
-        } else if (athleticType === 'cyclist') {
-          this.setState({
-            reviews: reviews.data,
-            filter: 'athletic type',
-            athleticType: 'cyclist'
-          });
-        } else {
-          this.setState({
-            reviews: reviews.data,
-            filter: 'athletic type',
-            athleticType: 'sweaty generalist'
-          });
-        }
-      })
-      .catch(err => console.error(err));
+
+    let savedReviews = this.state.reviews;
+    let filteredResults = this.state.reviews.filter(review => review.athletictype === athletictype);
+
+    this.setState({
+        reviews: filteredResults,
+        savedReviews: savedReviews,
+        filter: 'athletic type',
+        athletictype: athletictype
+      });
   }
 
-  filterReviewsByAge = (ageRange) => {
+  filterReviewsByAge = (agerange) => {
     $('.filter-popin').show();
     $('.filtered-rating-disclaimer').show();
-    axios
-      .get(`/reviews/filter-by-age-range/${ageRange}`)
-      .then((reviews) => {
-        if (ageRange === 'under-18') {
-          this.setState({
-            reviews: reviews.data,
-            filter: 'age',
-            age: 'under 18'
-          });
-        } else if (ageRange === '18-24') {
-          this.setState({
-            reviews: reviews.data,
-            filter: 'age',
-            age: '18-24'
-          });
-        } else if (ageRange === '25-34') {
-          this.setState({
-            reviews: reviews.data,
-            filter: 'age',
-            age: '25-34'
-          });
-        } else if (ageRange === '35-44') {
-          this.setState({
-            reviews: reviews.data,
-            filter: 'age',
-            age: '35-44'
-          });
-        }  else if (ageRange === '45-54') {
-          this.setState({
-            reviews: reviews.data,
-            filter: 'age',
-            age: '45-54'
-          });
-        } else if (ageRange === '55-65') {
-          this.setState({
-            reviews: reviews.data,
-            filter: 'age',
-            age: '55-65'
-          });
-        }  else if (ageRange === 'over-65') {
-          this.setState({
-            reviews: reviews.data,
-            filter: 'age',
-            age: 'over 65'
-          });
-        } else {
-          this.setState({
-            reviews: reviews.data,
-            filter: 'age',
-            age: 'i keep my age on the d.l.'
-          });
-        }
-      })
-      .catch(err => console.error(err));
+
+    let savedReviews = this.state.reviews;
+    let filteredResults = this.state.reviews.filter(review => review.agerange === agerange);
+
+    this.setState({
+      reviews: filteredResults,
+      savedReviews: savedReviews,
+      filter: 'age',
+      age: agerange
+    });
   }
 
-  filterReviewsByBodyType = (bodyType) => {
+  filterReviewsByBodyType = (bodytype) => {
     $('.filter-popin').show();
     $('.filtered-rating-disclaimer').show();
-    axios
-      .get(`/reviews/filter-by-body-type/${bodyType}`)
-      .then((reviews) => {
-        if (bodyType === 'athletic') {
-          this.setState({
-            reviews: reviews.data,
-            filter: 'body type',
-            bodyType: 'athletic'
-          });
-        } else if (bodyType === 'curvy') {
-          this.setState({
-            reviews: reviews.data,
-            filter: 'body type',
-            bodyType: 'curvy'
-          });
-        } else if (bodyType === 'lean') {
-          this.setState({
-            reviews: reviews.data,
-            filter: 'body type',
-            bodyType: 'lean'
-          });
-        } else if (bodyType === 'muscular') {
-          this.setState({
-            reviews: reviews.data,
-            filter: 'body type',
-            bodyType: 'muscular'
-          });
-        } else if (bodyType === 'petite') {
-          this.setState({
-            reviews: reviews.data,
-            filter: 'body type',
-            bodyType: 'petite'
-          });
-        } else if (bodyType === 'slim') {
-          this.setState({
-            reviews: reviews.data,
-            filter: 'body type',
-            bodyType: 'slim'
-          });
-        } else {
-          this.setState({
-            reviews: reviews.data,
-            filter: 'body type',
-            bodyType: 'solid'
-          });
-        }
-      })
-      .catch(err => console.error(err));
+
+    let savedReviews = this.state.reviews;
+    let filteredResults = this.state.reviews.filter(review => review.bodytype === bodytype);
+
+    this.setState({
+      reviews: filteredResults,
+      savedReviews: savedReviews,
+      filter: 'body type',
+      bodyType: bodytype
+    });
+
   }
 
   sortByFeatured = () => {
-    axios
-      .get('/reviews/sort-by-featured')
-      .then((reviews) => {
-        this.setState({
-          reviews: reviews.data,
-          sortButtonName: 'featured reviews first'
-        });
-      })
-      .catch(err => console.error(err));
+    let sortedResults = this.state.reviews.sort((a, b) => (a.featured < b.featured) ? 1 : -1);
+    this.setState({
+      reviews: sortedResults,
+      sortButtonName: 'featured reviews first'
+    });
   }
 
   sortByDate = () => {
-    axios
-      .get('/reviews/sort-by-date')
-      .then((reviews) => {
-        this.setState({
-          reviews: reviews.data,
-          sortButtonName: 'date-newest first'
-        });
-      })
-      .catch(err => console.error(err));
+    let sortedResults = this.state.reviews.sort((a, b) => (a.sortableReviewDate < b.sortableReviewDate) ? 1 : -1);
+    this.setState({
+      reviews: sortedResults,
+      sortButtonName: 'date-newest first'
+    });
   }
 
   sortByRatingDescending = () => {
-    axios
-      .get('/reviews/sort-by-rating-descending')
-      .then((reviews) => {
-        this.setState({
-          reviews: reviews.data,
-          sortButtonName: 'rating-high to low'
-        });
-      })
-      .catch(err => console.error(err));
+    let sortedResults = this.state.reviews.sort((a, b) => (a.rating < b.rating) ? 1 : -1);
+    this.setState({
+      reviews: sortedResults,
+      sortButtonName: 'rating-high to low'
+    });
   }
 
   sortByRatingAscending = () => {
-    axios
-      .get('/reviews/sort-by-rating-ascending')
-      .then((reviews) => {
-        this.setState({
-          reviews: reviews.data,
-          sortButtonName: 'rating-low to high'
-        });
-      })
-      .catch(err => console.error(err));
+    let sortedResults = this.state.reviews.sort((a, b) => (a.rating > b.rating) ? 1 : -1);
+    this.setState({
+      reviews: sortedResults,
+      sortButtonName: 'rating-low to high'
+    });
   }
 
   handleRemoveFiltersClick = (event) => {
     event.preventDefault();
-    this.getReviews();
+    this.setState({
+      reviews: this.state.savedReviews
+    });
     $('.filter-popin').hide();
     $('.filtered-rating-disclaimer').hide();
   }
 
   render() {
-    let { reviews, sortButtonName, filter, rating, athleticType, age, bodyType } = this.state;
+    let { reviews, sortButtonName, filter, rating, athletictype, age, bodytype } = this.state;
     let sum = 0;
     for (var i = 0; i < reviews.length; i++) {
       sum += reviews[i].rating;
@@ -295,17 +149,17 @@ export default class App extends Component {
     let averageString = average.toString().split('.').join('_');
 
     let reviewNumber = reviews.length;
-    
+
     let filterCriteria;
 
     if (filter === 'rating') {
       filterCriteria = rating;
     } else if (filter === 'athletic type') {
-      filterCriteria = athleticType;
+      filterCriteria = athletictype;
     } else if (filter === 'age') {
       filterCriteria = age;
     } else {
-      filterCriteria = bodyType;
+      filterCriteria = bodytype;
     }
 
     return (
@@ -348,7 +202,7 @@ export default class App extends Component {
           <div className="filter-popin">
             <div className="show-review-number">
               {`Show me ${reviewNumber} reviews with`}
-            </div> 
+            </div>
             <div className="filter-and-number" >
               <span className="filter-type">{filter}</span>
               <span>

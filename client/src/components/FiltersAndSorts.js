@@ -117,22 +117,23 @@ export default class FiltersAndSorts extends Component {
     let cyclistCount = 0;
     let sweatyCount = 0;
     for (let i = 0; i < reviews.length; i++) {
-      if (reviews[i].athleticType === 'yogi') {
+      if (reviews[i].athletictype === 'yogi') {
         yogiCount++;
       }
-      if (reviews[i].athleticType === 'runner') {
+      if (reviews[i].athletictype === 'runner') {
         runnerCount++;
       }
-      if (reviews[i].athleticType === 'dancer') {
+      if (reviews[i].athletictype === 'dancer') {
         dancerCount++;
       }
-      if (reviews[i].athleticType === 'cyclist') {
+      if (reviews[i].athletictype === 'cyclist') {
         cyclistCount++;
       }
-      if (reviews[i].athleticType === 'sweaty-generalist') {
+      if (reviews[i].athletictype === 'sweaty-generalist') {
         sweatyCount++;
       }
     }
+
 
     let firstAgeCount = 0;
     let secondAgeCount = 0;
@@ -143,28 +144,28 @@ export default class FiltersAndSorts extends Component {
     let seventhAgeCount = 0;
     let eighthAgeCount = 0;
     for (let i = 0; i < reviews.length; i++) {
-      if (reviews[i].ageRange === 'under-18') {
+      if (reviews[i].agerange === 'under-18') {
         firstAgeCount++;
       }
-      if (reviews[i].ageRange === '18-24') {
+      if (reviews[i].agerange === '18-24') {
         secondAgeCount++;
       }
-      if (reviews[i].ageRange === '25-34') {
+      if (reviews[i].agerange === '25-34') {
         thirdAgeCount++;
       }
-      if (reviews[i].ageRange === '35-44') {
+      if (reviews[i].agerange === '35-44') {
         fourthAgeCount++;
       }
-      if (reviews[i].ageRange === '45-54') {
+      if (reviews[i].agerange === '45-54') {
         fifthAgeCount++;
       }
-      if (reviews[i].ageRange === '55-65') {
+      if (reviews[i].agerange === '55-65') {
         sixthAgeCount++;
       }
-      if (reviews[i].ageRange === 'over-65') {
+      if (reviews[i].agerange === 'over-65') {
         seventhAgeCount++;
       }
-      if (reviews[i].ageRange === 'i-keep-my-age-on-the-dl') {
+      if (reviews[i].agerange === 'i-keep-my-age-on-the-dl') {
         eighthAgeCount++;
       }
     }
@@ -177,29 +178,29 @@ export default class FiltersAndSorts extends Component {
     let slimCount = 0;
     let solidCount = 0;
     for (let i = 0; i < reviews.length; i++) {
-      if (reviews[i].bodyType === 'athletic') {
+      if (reviews[i].bodytype === 'athletic') {
         athleticCount++;
       }
-      if (reviews[i].bodyType === 'curvy') {
+      if (reviews[i].bodytype === 'curvy') {
         curvyCount++;
       }
-      if (reviews[i].bodyType === 'lean') {
+      if (reviews[i].bodytype === 'lean') {
         leanCount++;
       }
-      if (reviews[i].bodyType === 'muscular') {
+      if (reviews[i].bodytype === 'muscular') {
         muscularCount++;
       }
-      if (reviews[i].bodyType === 'petite') {
+      if (reviews[i].bodytype === 'petite') {
         petiteCount++;
       }
-      if (reviews[i].bodyType === 'slim') {
+      if (reviews[i].bodytype === 'slim') {
         slimCount++;
       }
-      if (reviews[i].bodyType === 'solid') {
+      if (reviews[i].bodytype === 'solid') {
         solidCount++;
       }
     }
-    
+
     const { filterReviewsByRating, filterReviewsByAthleticType, filterReviewsByAge, filterReviewsByBodyType, sortByFeatured, sortByDate, sortByRatingDescending, sortByRatingAscending, sortButtonName } = this.props;
 
     return (

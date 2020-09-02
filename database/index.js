@@ -9,12 +9,14 @@ const url = 'mongodb://localhost/lalalime';
 const dbName = 'lalalime';
 // Use connect method to connect to the server
 
-MongoClient.connect(url, { useUnifiedTopology: true }, { useNewUrlParser: true }, function(err, client) {
+MongoClient.connect(url, { useUnifiedTopology: true }, { useNewUrlParser: true }, function(err,database) {
   assert.equal(null, err);
   console.log("Connected successfully to server");
-  const db = client.db(dbName);
-  client.close();
+  //const db = client.db(dbName);
+
 });
+
+module.exports = MongoClient
 
 
 // const mongoose = require('mongoose');
