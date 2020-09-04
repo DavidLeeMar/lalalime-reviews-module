@@ -1,10 +1,39 @@
-const {sortReviewsByDate} = require('../database/dbhelpers.js');
+const db = require('../database/dbhelpers.js');
 
 const controller = {
 
   sortByDate: (req, res) => {
+    db.sortReviewsByDate(req.params.id, (err, result) =>{
+      if (err) {
+        res.status(404).send(err);
+      } else {
+        res.status(200).send(result);
+      }
+    })
+  },
 
-    sortReviewsByDate(req.params.id, (err, result) =>{
+  delete: (req, res) => {
+    db.deleteReview(req.params.id, (err, result) =>{
+      if (err) {
+        res.status(404).send(err);
+      } else {
+        res.status(200).send('Successfully Deleted');
+      }
+    })
+  },
+
+  updateReviewBody: (req, res) => {
+    db.updateReviewBody(req.body, (err, result) =>{
+      if (err) {
+        res.status(404).send(err);
+      } else {
+        res.status(200).send('Successfully Updated');
+      }
+    })
+  },
+
+  insertReview: (req, res) => {
+    db.insertReview(req.params.id, (err, result) =>{
       if (err) {
         res.status(404).send(err);
       } else {

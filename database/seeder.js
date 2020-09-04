@@ -16,6 +16,8 @@ const randomDate = (start, end) => {
   return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 }
 
+//convert reviewdate to YYYYMMDD format
+
 const convertDate = (date) => {
   date = date.toDateString().slice(4);
   let month = date.slice(0, 3);
@@ -278,7 +280,7 @@ writeTenMillionUsers(writeUsers, 'utf-8', () => {
 */
 /*FOR POSTGRES */
 
-
+/*
 const writeUsers = fs.createWriteStream('sqldata5.csv');
 writeUsers.write(`rating, username, activeSinceDate, helpfulnessVotesThumbsUp, helpfulnessVotesThumbsDown, featured, location, athleticType, ageRange, bodyType, whatYouLike, whatYouDidntLike, reviewDate, sortableReviewDate,reviewTitle, reviewBody, wasThisReviewHelpfulYes, wasThisReviewHelpfulNo, product_id\n`, 'utf8');
 
@@ -322,7 +324,7 @@ writeTenMillionUsers(writeUsers, 'utf-8', () => {
 });
 
 
-
+*/
 
 
 
@@ -446,3 +448,200 @@ writeTenMillionUsers(writeUsers, 'utf-8', () => {
   writeUsers.end();
 });
 */
+
+
+//** 5M - 0 **/
+
+const writeUsers1 = fs.createWriteStream('aws1.csv');
+writeUsers1.write(`rating, username, activeSinceDate, helpfulnessVotesThumbsUp, helpfulnessVotesThumbsDown, featured, location, athleticType, ageRange, bodyType, whatYouLike, whatYouDidntLike, reviewDate, sortableReviewDate,reviewTitle, reviewBody, wasThisReviewHelpfulYes, wasThisReviewHelpfulNo, product_id\n`, 'utf8');
+
+function first5million(writer, encoding, callback) {
+  let i = 5000001;
+
+  function write() {
+    let ok = true;
+    do {
+      i -= 1;
+
+
+      let review = createBottoms();
+      //let randomNumber = (Math.floor(Math.random() * 5000000)) + 5000001;
+      const data =
+      `${review.rating},${review.username},"${review.activeSinceDate}",${review.helpfulnessVotesThumbsUp},${review.helpfulnessVotesThumbsDown},${review.featured},"${review.location}",${review.athleticType},${review.ageRange},${review.bodyType},${review.whatYouLike},${review.whatYouDidntLike},"${review.reviewDate}","${review.sortableReviewDate}",${review.reviewTitle},"${review.reviewBody}",${review.wasThisReviewHelpfulYes},${review.wasThisReviewHelpfulNo},${i}\n`;
+
+      if (i === 1) {
+        console.log('done', data);
+        writer.write(data, encoding, callback);
+
+      } else {
+
+      // see if we should continue, or wait
+      // don't pass the callback, because we're not done yet.
+        ok = writer.write(data, encoding);
+      }
+
+    } while (i > 1 && ok);
+    if (i > 1) {
+// had to stop early!
+// write some more once it drains
+      writer.once('drain', write);
+    }
+  }
+write()
+}
+
+first5million(writeUsers1, 'utf-8', () => {
+  writeUsers1.end();
+});
+
+
+//** 10M - 5M **/
+
+const writeUsers2 = fs.createWriteStream('aws2.csv');
+writeUsers2.write(`rating, username, activeSinceDate, helpfulnessVotesThumbsUp, helpfulnessVotesThumbsDown, featured, location, athleticType, ageRange, bodyType, whatYouLike, whatYouDidntLike, reviewDate, sortableReviewDate,reviewTitle, reviewBody, wasThisReviewHelpfulYes, wasThisReviewHelpfulNo, product_id\n`, 'utf8');
+
+function second5million(writer, encoding, callback) {
+  let i = 10000001;
+
+  function write() {
+    let ok = true;
+    do {
+      i -= 1;
+
+
+      let review = createTops();
+      //let randomNumber = (Math.floor(Math.random() * 5000000)) + 5000001;
+      const data =
+      `${review.rating},${review.username},"${review.activeSinceDate}",${review.helpfulnessVotesThumbsUp},${review.helpfulnessVotesThumbsDown},${review.featured},"${review.location}",${review.athleticType},${review.ageRange},${review.bodyType},${review.whatYouLike},${review.whatYouDidntLike},"${review.reviewDate}","${review.sortableReviewDate}",${review.reviewTitle},"${review.reviewBody}",${review.wasThisReviewHelpfulYes},${review.wasThisReviewHelpfulNo},${i}\n`;
+
+      if (i === 5000001) {
+        console.log('done', data);
+        writer.write(data, encoding, callback);
+
+      } else {
+
+      // see if we should continue, or wait
+      // don't pass the callback, because we're not done yet.
+        ok = writer.write(data, encoding);
+      }
+
+    } while (i > 5000001 && ok);
+    if (i > 5000001) {
+// had to stop early!
+// write some more once it drains
+      writer.once('drain', write);
+    }
+  }
+write()
+}
+
+second5million(writeUsers2, 'utf-8', () => {
+  writeUsers2.end();
+});
+
+
+
+//** additional 10M bottoms **
+
+const writeUsersBottom3 = fs.createWriteStream('aws3.csv');
+writeUsersBottom3.write(`rating, username, activeSinceDate, helpfulnessVotesThumbsUp, helpfulnessVotesThumbsDown, featured, location, athleticType, ageRange, bodyType, whatYouLike, whatYouDidntLike, reviewDate, sortableReviewDate,reviewTitle, reviewBody, wasThisReviewHelpfulYes, wasThisReviewHelpfulNo, product_id\n`, 'utf8');
+
+const writeUsersBottom4 = fs.createWriteStream('aws4.csv');
+writeUsersBottom4.write(`rating, username, activeSinceDate, helpfulnessVotesThumbsUp, helpfulnessVotesThumbsDown, featured, location, athleticType, ageRange, bodyType, whatYouLike, whatYouDidntLike, reviewDate, sortableReviewDate,reviewTitle, reviewBody, wasThisReviewHelpfulYes, wasThisReviewHelpfulNo, product_id\n`, 'utf8');
+
+function additional5millionbottoms(writer, encoding, callback) {
+  let i = 5000001;
+
+  function write() {
+    let ok = true;
+    do {
+      i -= 1;
+
+
+      let review = createBottoms();
+      let randomNumber = (Math.floor(Math.random() * 5000000)) + 1;
+      const data =
+      `${review.rating},${review.username},"${review.activeSinceDate}",${review.helpfulnessVotesThumbsUp},${review.helpfulnessVotesThumbsDown},${review.featured},"${review.location}",${review.athleticType},${review.ageRange},${review.bodyType},${review.whatYouLike},${review.whatYouDidntLike},"${review.reviewDate}","${review.sortableReviewDate}",${review.reviewTitle},"${review.reviewBody}",${review.wasThisReviewHelpfulYes},${review.wasThisReviewHelpfulNo},${randomNumber}\n`;
+
+      if (i === 1) {
+        console.log('done', data);
+        writer.write(data, encoding, callback);
+
+      } else {
+
+      // see if we should continue, or wait
+      // don't pass the callback, because we're not done yet.
+        ok = writer.write(data, encoding);
+      }
+
+    } while (i > 1 && ok);
+    if (i > 1) {
+// had to stop early!
+// write some more once it drains
+      writer.once('drain', write);
+    }
+  }
+write()
+}
+
+additional5millionbottoms(writeUsersBottom3, 'utf-8', () => {
+  writeUsersBottom3.end();
+});
+
+additional5millionbottoms(writeUsersBottom4, 'utf-8', () => {
+  writeUsersBottom4.end();
+});
+
+
+
+//** additional 10M tops **
+
+const writeUsersTops5 = fs.createWriteStream('aws5.csv');
+writeUsersTops5.write(`rating, username, activeSinceDate, helpfulnessVotesThumbsUp, helpfulnessVotesThumbsDown, featured, location, athleticType, ageRange, bodyType, whatYouLike, whatYouDidntLike, reviewDate, sortableReviewDate,reviewTitle, reviewBody, wasThisReviewHelpfulYes, wasThisReviewHelpfulNo, product_id\n`, 'utf8');
+
+const writeUsersTops6 = fs.createWriteStream('aws6.csv');
+writeUsersTops6.write(`rating, username, activeSinceDate, helpfulnessVotesThumbsUp, helpfulnessVotesThumbsDown, featured, location, athleticType, ageRange, bodyType, whatYouLike, whatYouDidntLike, reviewDate, sortableReviewDate,reviewTitle, reviewBody, wasThisReviewHelpfulYes, wasThisReviewHelpfulNo, product_id\n`, 'utf8');
+
+function additional5milliontops(writer, encoding, callback) {
+  let i = 5000001;
+
+  function write() {
+    let ok = true;
+    do {
+      i -= 1;
+
+
+      let review = createTops();
+      let randomNumber = (Math.floor(Math.random() * 5000000)) + 5000001;
+      const data =
+      `${review.rating},${review.username},"${review.activeSinceDate}",${review.helpfulnessVotesThumbsUp},${review.helpfulnessVotesThumbsDown},${review.featured},"${review.location}",${review.athleticType},${review.ageRange},${review.bodyType},${review.whatYouLike},${review.whatYouDidntLike},"${review.reviewDate}","${review.sortableReviewDate}",${review.reviewTitle},"${review.reviewBody}",${review.wasThisReviewHelpfulYes},${review.wasThisReviewHelpfulNo},${randomNumber}\n`;
+
+      if (i === 1) {
+        console.log('done', data);
+        writer.write(data, encoding, callback);
+
+      } else {
+
+      // see if we should continue, or wait
+      // don't pass the callback, because we're not done yet.
+        ok = writer.write(data, encoding);
+      }
+
+    } while (i > 1 && ok);
+    if (i > 1) {
+// had to stop early!
+// write some more once it drains
+      writer.once('drain', write);
+    }
+  }
+write()
+}
+
+additional5milliontops(writeUsersTops5, 'utf-8', () => {
+  writeUsersTops5.end();
+});
+
+additional5milliontops(writeUsersTops6, 'utf-8', () => {
+  writeUsersTops6.end();
+});
+

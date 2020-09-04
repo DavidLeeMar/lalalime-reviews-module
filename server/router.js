@@ -7,6 +7,18 @@ router
   .route('/sort-by-date/:id')
   .get(controller.sortByDate);
 
+router
+  .route('/delete/:id')
+  .get(controller.delete);
+
+router
+  .route('/updatereviewbody')
+  .get(controller.updateReviewBody);
+
+router
+  .route('/insertreview')
+  .get(controller.insertReview);
+
 module.exports = router;
 
 // router
