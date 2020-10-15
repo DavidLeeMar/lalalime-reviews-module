@@ -1,13 +1,14 @@
-# LalaLime Review Module
+# LalaLime Reviews Module
 
-> Functional front-end remodel of LuluLemon Review Section
+> A front-end remodel of LuluLemon Reviews Module that has been optimized and stress tested
 
 ## Related Projects
 
-  - https://github.com/team-nachos-fec/lalalime-navbar
-  - https://github.com/team-nachos-fec/lalalime-main-product
-  - https://github.com/team-nachos-fec/lalalime-similar-products
-  
+  - https://github.com/the-four-loops/lalalime-nav-module
+  - https://github.com/the-four-loops/lalalime-main-product-module
+  - https://github.com/the-four-loops/lalalime-similar-products-module
+  - https://github.com/the-four-loops/lalalime-reviews-proxy
+
 
 ## Table of Contents
 
