@@ -19,17 +19,14 @@
 
 ## Scalability
 
-This application utilized 4 t2-micro instances on AWS EC2 connected to one instance with PostGreSQL
+This application utilizes 4 t2-micro instances on AWS EC2. It can handle up to 1350 requests per second with an average response time of 79ms, and an error rate of .1%.
 
-to delivered performance of
-
-
-
- database, times
-//show maximum performance
-//show performance with one server
-
+Four t2-micro instances
 ![](https://i.imgur.com/z2n71EE.png)
+
+With 1 t2-micro instance, we are only able to achieve 350 requests per second.
+
+One t2-micro instance
 ![](https://i.imgur.com/sHAqaon.png)
 
 ## Demos
