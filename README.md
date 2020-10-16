@@ -44,6 +44,19 @@ With 1 t2-micro instance, we are only able to achieve 350 requests per second.
 ![Alt text](https://i.imgur.com/gGBEeDu.png)
 
 
+## Requirements
+
+1. Install PostgreSQL
+2. Update database connection in database/pg.js
+3. Install dependencies
+
+```sh
+npm install -g webpack
+npm install
+```
+
+
+
 ## Usage
 
 To run the server, run ``` npm start ``` in a terminal window
@@ -52,15 +65,7 @@ To seed the database, run ``` npm run seed ``` in another terminal window
 
 To view the review section in a browser, enter http://localhost:3004/ in the address bar
 
-## Requirements
 
 
 
-### Installing Dependencies
 
-From within the root directory:
-
-```sh
-npm install -g webpack
-npm install
-```
